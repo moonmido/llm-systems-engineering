@@ -1,0 +1,691 @@
+
+
+def calculate_statistics(numbers):
+    total = sum(numbers)
+    count = len(numbers)
+    mean = total / count if count > 0 else 0
+    variance = sum((x - mean) ** 2 for x in numbers) / count
+    return {
+        "mean": mean,
+        "variance": variance,
+        "std_dev": variance ** 0.5,
+        "total": total,
+        "count": count
+    }
+
+class DataProcessor:
+    def __init__(self, name, batch_size=32):
+        self.name = name
+        self.batch_size = batch_size
+        self.data = []
+    
+    def load_data(self, file_path):
+        with open(file_path, 'r') as f:
+            self.data = [line.strip() for line in f.readlines()]
+        print(f"Loaded {len(self.data)} records from {file_path}")
+        return self
+    
+    def process_batch(self, batch_index):
+        start = batch_index * self.batch_size
+        end = start + self.batch_size
+        batch = self.data[start:end]
+        processed = [item.upper() for item in batch]
+        return processed
+
+for epoch in range(100):
+    loss = 0.5 / (epoch + 1)
+    accuracy = 0.85 + (epoch * 0.001)
+    print(f"Epoch {epoch}: loss={loss:.4f}, acc={accuracy:.4f}")
+    
+    if loss < 0.01:
+        print("Early stopping triggered")
+        break
+
+class UserAuthentication:
+    def __init__(self):
+        self.users = {}
+        self.session_tokens = {}
+    
+    def register_user(self, username, password_hash, email):
+        if username in self.users:
+            return False, "Username already exists"
+        
+        self.users[username] = {
+            "password": password_hash,
+            "email": email,
+            "created_at": "2024-01-01",
+            "is_active": True
+        }
+        return True, "Registration successful"
+
+def fibonacci(n):
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [0]
+    elif n == 2:
+        return [0, 1]
+    
+    sequence = [0, 1]
+    for i in range(2, n):
+        sequence.append(sequence[i-1] + sequence[i-2])
+    return sequence
+
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1
+
+import json
+import csv
+from datetime import datetime
+from typing import List, Dict, Optional
+
+class DataPipeline:
+    def __init__(self, config: Dict[str, any]):
+        self.config = config
+        self.stage_results = []
+    
+    def extract(self, source: str) -> List[Dict]:
+        if source.endswith('.json'):
+            with open(source, 'r') as f:
+                data = json.load(f)
+        elif source.endswith('.csv'):
+            data = []
+            with open(source, 'r') as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    data.append(row)
+        else:
+            raise ValueError(f"Unsupported source format: {source}")
+        return data
+    
+    def transform(self, data: List[Dict]) -> List[Dict]:
+        transformed = []
+        for record in data:
+            new_record = record.copy()
+            new_record['processed_at'] = datetime.now().isoformat()
+            transformed.append(new_record)
+        return transformed
+    
+    def load(self, data: List[Dict], destination: str):
+        with open(destination, 'w') as f:
+            json.dump(data, f, indent=2)
+        print(f"Loaded {len(data)} records to {destination}")
+
+def main():
+    processor = DataProcessor("main_processor")
+    
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    stats = calculate_statistics(numbers)
+    print(f"Statistics: {stats}")
+    
+    fib = fibonacci(20)
+    print(f"First 20 Fibonacci numbers: {fib}")
+    
+    sorted_array = [1, 3, 5, 7, 9, 11, 13, 15]
+    index = binary_search(sorted_array, 7)
+    print(f"Found 7 at index: {index}")
+
+if __name__ == "__main__":
+    main()
+
+for i in range(50):
+    if i % 2 == 0:
+        print(f"Even number: {i}")
+    else:
+        print(f"Odd number: {i}")
+
+try:
+    result = 10 / 2
+    assert result == 5
+    print("Division test passed")
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+except AssertionError:
+    print("Assertion failed")
+finally:
+    print("Cleanup operations")
+
+def decorator_example(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__}")
+        result = func(*args, **kwargs)
+        print(f"{func.__name__} returned {result}")
+        return result
+    return wrapper
+
+@decorator_example
+def multiply(a, b):
+    return a * b
+
+multiply(6, 7)
+
+class NeuralNetworkLayer:
+    def __init__(self, input_dim, output_dim, activation='relu'):
+        self.weights = [[0.0] * input_dim for _ in range(output_dim)]
+        self.biases = [0.0] * output_dim
+        self.activation = activation
+        
+        for i in range(output_dim):
+            for j in range(input_dim):
+                self.weights[i][j] = (j - i) / (input_dim + output_dim)
+    
+    def forward(self, inputs):
+        outputs = []
+        for i in range(len(self.biases)):
+            total = self.biases[i]
+            for j in range(len(inputs)):
+                total += self.weights[i][j] * inputs[j]
+            outputs.append(max(0, total) if self.activation == 'relu' else total)
+        return outputs
+
+list_comprehension_example = [x**2 for x in range(100) if x % 3 == 0]
+dict_comprehension = {f"key_{i}": i*10 for i in range(20)}
+set_comprehension = {chr(65 + i) for i in range(26)}
+
+with open('output.txt', 'w') as f:
+    for key, value in dict_comprehension.items():
+        f.write(f"{key}: {value}\n")
+EtaList = 1 / (4 ** numpy.arange(0, 10))
+
+class Solver:
+    def __init__(self, m=8):
+        self.m = m
+        self.executorList = list()
+    
+    
+    def fit(self, xMat, yVec, s=None):
+        '''
+        Partition X and y to self.m blocks.
+        If s is not given, then we set s=n/m and the partition has no overlap.
+        '''
+        n, d = xMat.shape
+        perm = numpy.random.permutation(n)
+        xMat = xMat[perm, :]
+        yVec = yVec[perm, :]
+        s1 = int(numpy.floor(n / self.m))
+        n = int(s1 * self.m)
+        
+        iBegin = 0
+        for i in range(self.m):
+            idx = range(iBegin, iBegin+s1)
+            iBegin += s1
+            xBlk = xMat[idx, :]
+            yBlk = yVec[idx, :].reshape(s1, 1)
+        
+            if s is None:
+                executor = Executor(xBlk, yBlk)
+            else:
+                idx2 = numpy.random.choice(n, s, replace=False)
+                xBlk2 = xMat[idx2, :]
+                yBlk2 = yVec[idx2, :]
+                executor = Executor(xBlk, yBlk, xMat2=xBlk2, yVec2=yBlk2)
+                
+            self.executorList.append(executor)
+        
+        self.n = n
+        self.d = d
+        
+    
+    def train(self, gamma, wopt, maxIter=20, isSearch=False, newtonTol=1e-100, newtonMaxIter=20, isExact=False):
+        errorList = list()
+        wnorm = numpy.linalg.norm(wopt)
+        w = numpy.zeros((self.d, 1))
+            
+        err = numpy.linalg.norm(w - wopt) / wnorm
+        errorList.append(err)
+        
+        self.etaList = EtaList
+        self.numEta = len(self.etaList)
+        
+        for executor in self.executorList:
+            executor.setParam(gamma, newtonTol, newtonMaxIter, isSearch, isExact, self.etaList)
+        
+        # iteratively update w
+        for t in range(maxIter):
+            wold = w
+            w = self.update(w, gamma, isSearch)
+            
+            err = numpy.linalg.norm(w - wopt) / wnorm
+            errorList.append(err)
+            print('Iter ' + str(t) + ': error is ' + str(err))
+            
+            #diff = numpy.linalg.norm(w - wold)
+            #print('The change between two iterations is ' + str(diff))
+            #if diff < self.tolConverge:
+            #   break
+        
+        self.w = w
+        return errorList
+    
+    def update(self, w, gamma, isSearch):
+        '''
+        Perform one iteration of update
+        '''
+        # compute gradient
+        grad = numpy.zeros((self.d, 1))
+        for executor in self.executorList:
+            grad += executor.computeGrad()
+        #grad = grad / self.n + gamma * w
+        grad = grad / self.m
+
+        # compute Newton direction
+        p = numpy.zeros((self.d, 1))
+        for i in range(self.m):
+            plocal = self.executorList[i].computeNewton(grad)
+            p += plocal
+        p /= self.m
+
+        # broadcast p to all the executors
+        for executor in self.executorList:
+            executor.updateP(p)
+            
+        if isSearch:
+            pg = -0.1 * numpy.sum(p * grad)
+            objValVec = numpy.zeros(self.numEta + 1)
+            for executor in self.executorList:
+                objValVec += executor.objFunSearch()
+            
+            objValOld = objValVec[-1]
+            for l in range(self.numEta):
+                objValNew = objValVec[l]
+                eta = self.etaList[l]
+                if objValNew < objValOld + pg * eta:
+                    break
+            
+            p *= eta
+            for executor in self.executorList:
+                executor.updateP(p)
+                
+        for executor in self.executorList:
+            executor.updateW()
+            
+        # driver takes a Newton step
+        w -= p
+        return w
+
+ def loadData(dataname):
+    filename = home_dir + 'Resource/' + dataname + '.npz'
+    npzfile = numpy.load(filename)
+    print(npzfile.files)
+    X = npzfile['X']
+    y = npzfile['y']
+    n, d = X.shape
+    #X = numpy.concatenate((X, numpy.ones((n, 1))), axis=1)
+    print('Size of X is ' + str(n) + '-by-' + str(d))
+    print('Size of y is ' + str(y.shape))
+    return X, y
+
+def experiment(xMat, yVec, maxiter, repeat, gamma, isSearch, isExact, newtoniter=100):
+    demo = Demo(maxiter, repeat, gamma)
+    demo.fit(xMat, yVec, m=256)
+    condnum = demo.condnum
+    print('Condition number is ' + str(condnum))
+    
+    m = 4
+    print('m = ' + str(m))
+    err1 = demo.testConvergence(m, isSearch=isSearch, isExact=isExact, newtoniter=newtoniter)
+    m = 16
+    print('m = ' + str(m))
+    err2 = demo.testConvergence(m, isSearch=isSearch, isExact=isExact, newtoniter=newtoniter)
+    m = 64
+    print('m = ' + str(m))
+    err3 = demo.testConvergence(m, isSearch=isSearch, isExact=isExact, newtoniter=newtoniter)
+    m = 256
+    print('m = ' + str(m))
+    err4 = demo.testConvergence(m, isSearch=isSearch, isExact=isExact, newtoniter=newtoniter)
+    
+    return err1, err2, err3, err4, condnum
+
+
+def plotConvergence(outfilename, imagename):
+    npzfile = numpy.load(outfilename)
+    dataname = str(npzfile['dataname'])
+    maxiter = npzfile['maxiter']
+    newtoniter = npzfile['newtoniter']
+    err1 = npzfile['err1']
+    err2 = npzfile['err2']
+    err3 = npzfile['err3']
+    err4 = npzfile['err4']
+    
+    repeat = err1.shape[0]
+    
+    # plot
+    fig = plt.figure(figsize=(9, 8))
+    
+    for r in range(repeat):
+        plt.semilogy(err1[r, :], color='greenyellow', linestyle='-', linewidth=0.5, alpha=0.5)
+        plt.semilogy(err2[r, :], color='salmon', linestyle='-', linewidth=0.5, alpha=0.5)
+        plt.semilogy(err3[r, :], color='skyblue', linestyle='-', linewidth=0.5, alpha=0.5)
+        plt.semilogy(err4[r, :], color='grey', linestyle='-', linewidth=0.5, alpha=0.5)  
+    
+    line0, = plt.semilogy(numpy.median(err1, axis=0), color='g', linestyle='-', linewidth=3)
+    line1, = plt.semilogy(numpy.median(err2, axis=0), color='r', linestyle='-', linewidth=3.5)
+    line2, = plt.semilogy(numpy.median(err3, axis=0), color='b', linestyle='-', linewidth=3.5)
+    line3, = plt.semilogy(numpy.median(err4, axis=0), color='k', linestyle='-', linewidth=3.5)
+    
+    fontsize = 32
+    #plt.legend([line0, line1, line2, line3], ['m=4', 'm=16', 'm=64', 'm=256'], fontsize=20)
+    plt.xlabel('iterations (t)', fontsize=fontsize+2)
+    #plt.ylabel(r"$|| w - w^\star ||_2$", fontsize=fontsize)
+    #plt.title(r"$\gamma = 10^{-2}$", fontsize=fontsize+2)
+    plt.xticks([0, 5, 10, 15, 20, 25, 30], fontsize=fontsize) 
+    plt.yticks(fontsize=fontsize) 
+    plt.axis([0, maxiter, 1e-8, 5])
+    plt.tight_layout()
+    
+    print(imagename)
+    fig.savefig(imagename, format='pdf', dpi=1200)
+    #plt.show()
+    
+def main(NewtonIter, Gamma, ResultName): 
+    #dataname = 'logis_U8'
+    dataname = 'covtype'
+    path = home_dir + 'Output/logis/'
+    MaxIter = 30
+    Repeat = 10
+    IsSearch = False
+    IsExact = False
+    
+    xMat, yVec = loadData(dataname)
+    print(xMat)
+    print(yVec)
+    
+    err1, err2, err3, err4, condnum = experiment(xMat, yVec, MaxIter, Repeat, Gamma, IsSearch, IsExact, newtoniter=NewtonIter)
+    outfilename = path + dataname + ResultName + '.npz'
+    numpy.savez(outfilename, err1=err1, err2=err2, err3=err3, err4=err4, dataname=dataname, maxiter=MaxIter, newtoniter=NewtonIter, condnum=condnum)
+    
+    imagename = path + dataname + ResultName + '.pdf'
+    plotConvergence(outfilename, imagename)
+    
+    
+
+if __name__ == '__main__':
+    
+    NewtonIter = 30
+    Gamma = 1e-2
+    GammaName = '_gamma-2'
+    ResultName = '_iter' + str(NewtonIter) + GammaName
+    main(NewtonIter, Gamma, ResultName)
+    
+    NewtonIter = 90
+    Gamma = 1e-3
+    GammaName = '_gamma-3'
+    ResultName = '_iter' + str(NewtonIter) + GammaName
+    main(NewtonIter, Gamma, ResultName)
+    
+    NewtonIter = 270
+    Gamma = 1e-4
+    GammaName = '_gamma-4'
+    ResultName = '_iter' + str(NewtonIter) + GammaName
+    main(NewtonIter, Gamma, ResultName)
+    
+    NewtonIter = 810
+    Gamma = 1e-5
+    GammaName = '_gamma-5'
+    ResultName = '_iter' + str(NewtonIter) + GammaName
+    main(NewtonIter, Gamma, ResultName)
+def loadData(dataname):
+    filename = home_dir + 'Resource/' + dataname + '.npz'
+    npzfile = numpy.load(filename)
+    print(npzfile.files)
+    X = npzfile['X']
+    y = npzfile['y']
+    n, d = X.shape
+    #X = numpy.concatenate((X, numpy.ones((n, 1))), axis=1)
+    print('Size of X is ' + str(n) + '-by-' + str(d))
+    print('Size of y is ' + str(y.shape))
+    return X, y
+
+def experiment(xMat, yVec, maxiter, repeat, gamma, isSearch, isExact, newtoniter=100):
+    demo = Demo(maxiter, repeat, gamma)
+    demo.fit(xMat, yVec, m=256)
+    condnum = demo.condnum
+    print('Condition number is ' + str(condnum))
+    
+    m = 4
+    print('m = ' + str(m))
+    err1 = demo.testConvergence(m, isSearch=isSearch, isExact=isExact, newtoniter=newtoniter)
+    m = 16
+    print('m = ' + str(m))
+    err2 = demo.testConvergence(m, isSearch=isSearch, isExact=isExact, newtoniter=newtoniter)
+    m = 64
+    print('m = ' + str(m))
+    err3 = demo.testConvergence(m, isSearch=isSearch, isExact=isExact, newtoniter=newtoniter)
+    m = 256
+    print('m = ' + str(m))
+    err4 = demo.testConvergence(m, isSearch=isSearch, isExact=isExact, newtoniter=newtoniter)
+    
+    return err1, err2, err3, err4, condnum
+
+    
+def main(NewtonIter, Gamma, ResultName): 
+    #dataname = 'logis_U8'
+    dataname = 'covtype'
+    path = home_dir + 'Output/logis/'
+    MaxIter = 30
+    Repeat = 10
+    IsSearch = False
+    IsExact = False
+    
+    xMat, yVec = loadData(dataname)
+    print(xMat)
+    print(yVec)
+    
+    err1, err2, err3, err4, condnum = experiment(xMat, yVec, MaxIter, Repeat, Gamma, IsSearch, IsExact, newtoniter=NewtonIter)
+    outfilename = path + dataname + ResultName + '.npz'
+    numpy.savez(outfilename, err1=err1, err2=err2, err3=err3, err4=err4, dataname=dataname, maxiter=MaxIter, newtoniter=NewtonIter, condnum=condnum)
+    
+    
+
+if __name__ == '__main__':
+    
+    NewtonIter = 20
+    Gamma = 1e-2
+    GammaName = '_gamma-2'
+    ResultName = '_iter' + str(NewtonIter) + GammaName
+    main(NewtonIter, Gamma, ResultName)
+    
+    NewtonIter = 65
+    Gamma = 1e-3
+    GammaName = '_gamma-3'
+    ResultName = '_iter' + str(NewtonIter) + GammaName
+    main(NewtonIter, Gamma, ResultName)
+    
+    NewtonIter = 199
+    Gamma = 1e-4
+    GammaName = '_gamma-4'
+    ResultName = '_iter' + str(NewtonIter) + GammaName
+    main(NewtonIter, Gamma, ResultName)
+    
+    NewtonIter = 623
+    Gamma = 1e-5
+    GammaName = '_gamma-5'
+    ResultName = '_iter' + str(NewtonIter) + GammaName
+    main(NewtonIter, Gamma, ResultName)
+    def loadData(dataname):
+    filename = home_dir + 'resource/' + dataname + '.npz'
+    npzfile = numpy.load(filename)
+    print(npzfile.files)
+    X = npzfile['X']
+    y = npzfile['y']
+    n, d = X.shape
+    #X = numpy.concatenate((X, numpy.ones((n, 1))), axis=1)
+    print('Size of X is ' + str(n) + '-by-' + str(d))
+    print('Size of y is ' + str(y.shape))
+    return X, y
+
+
+def experiment(xMat, yVec, maxiter, repeat, gamma, isSearch, isExact):
+    demo = Demo(maxiter, repeat, gamma)
+    demo.fit(xMat, yVec, m=256)
+    
+    m = 4
+    print('m = ' + str(m))
+    err1 = demo.testConvergence(m, isSearch=isSearch, isExact=isExact)
+    m = 16
+    print('m = ' + str(m))
+    err2 = demo.testConvergence(m, isSearch=isSearch, isExact=isExact)
+    m = 64
+    print('m = ' + str(m))
+    err3 = demo.testConvergence(m, isSearch=isSearch, isExact=isExact)
+    m = 256
+    print('m = ' + str(m))
+    err4 = demo.testConvergence(m, isSearch=isSearch, isExact=isExact)
+    
+    return err1, err2, err3, err4
+
+
+def plotConvergence(outfilename):
+    npzfile = numpy.load(outfilename)
+    dataname = str(npzfile['dataname'])
+    err1 = npzfile['err1']
+    err2 = npzfile['err2']
+    err3 = npzfile['err3']
+    err4 = npzfile['err4']
+    
+    repeat = err1.shape[0]
+    
+    # plot
+    fig = plt.figure(figsize=(9, 8))
+    
+    for r in range(repeat):
+        plt.semilogy(err1[r, :], color='greenyellow', linestyle='-', linewidth=0.5, alpha=0.5)
+        plt.semilogy(err2[r, :], color='salmon', linestyle='-', linewidth=0.5, alpha=0.5)
+        plt.semilogy(err3[r, :], color='skyblue', linestyle='-', linewidth=0.5, alpha=0.5)
+        plt.semilogy(err4[r, :], color='grey', linestyle='-', linewidth=0.5, alpha=0.5)  
+    
+    line0, = plt.semilogy(numpy.median(err1, axis=0), color='g', linestyle='-', linewidth=3)
+    line1, = plt.semilogy(numpy.median(err2, axis=0), color='r', linestyle='-', linewidth=3.5)
+    line2, = plt.semilogy(numpy.median(err3, axis=0), color='b', linestyle='-', linewidth=3.5)
+    line3, = plt.semilogy(numpy.median(err4, axis=0), color='k', linestyle='-', linewidth=3.5)
+    
+    fontsize = 32
+    #fontsize = 28
+    #plt.legend([line0, line1, line2, line3], ['m=4', 'm=16', 'm=64', 'm=256'], fontsize=20)
+    plt.xlabel('iterations (t)', fontsize=fontsize+2)
+    #plt.ylabel(r"$|| w - w^\star ||_2$", fontsize=fontsize)
+    #plt.title(r"$\gamma = 10^{-2}$", fontsize=fontsize+2)
+    plt.xticks([0, 5, 10, 15, 20, 25, 30], fontsize=fontsize) 
+    plt.yticks(fontsize=fontsize) 
+    plt.axis([0, 20, 1e-12, 5])
+    plt.tight_layout()
+    imagename = home_dir + 'Output/quad/quadratic_' + dataname + '.pdf'
+    print(imagename)
+    fig.savefig(imagename, format='pdf', dpi=1200)
+    plt.show()
+
+if __name__ == '__main__':  
+    MaxIter = 20
+    Repeat = 20
+    Gamma = 0
+    IsSearch = True
+    IsExact = True
+
+    #dataname = 'YearPredictionMSD' # raw libsvm data
+    #xMat, yVec = loadData(dataname)
+
+    dataname = 'rfm_YearPredictionMSD' # raw libsvm data
+    xMat, yVec = loadData(dataname)
+    
+    #dataname = 'N8' # synthetic data
+    #xMat, yVec = loadData(dataname)
+    
+    err1, err2, err3, err4 = experiment(xMat, yVec, MaxIter, Repeat, Gamma, IsSearch, IsExact)
+    
+    outfilename = home_dir + 'Output/quad/quadratic_' + dataname + '.npz'
+    numpy.savez(outfilename, err1=err1, err2=err2, err3=err3, err4=err4, dataname=dataname)
+    
+    plotConvergence(outfilename)
+    
+class Solver:
+    def __init__(self, X=None, y=None):
+        if (X is not None) and (y is not None):
+            self.n, self.d = X.shape
+            self.xMat = X * y.reshape(self.n, 1)
+        
+    def fit(self, xMat, yVec):
+        self.n, self.d = xMat.shape
+        self.xMat = xMat * yVec.reshape(self.n, 1)
+        
+    def objFun(self, wVec, *args):
+        gamma = args[0]
+        zVec = numpy.dot(self.xMat, wVec.reshape(self.d, 1))
+        lVec = numpy.log(1 + numpy.exp(-zVec))
+        return numpy.mean(lVec) + gamma / 2 * numpy.sum(wVec ** 2)
+    
+    def grad(self, wVec, *args):
+        gamma = args[0]
+        zVec = numpy.dot(self.xMat, wVec.reshape(self.d, 1))
+        expZVec = numpy.exp(zVec)
+        vec1 = 1 + expZVec
+        vec2 = -1 / vec1
+        grad1 = numpy.mean(self.xMat * vec2, axis=0)
+        grad = grad1.reshape(self.d) + gamma * wVec.reshape(self.d)
+        return grad
+        
+    def cg(self, gamma, tol=1e-20, maxiter=5000):
+        wVec0 = numpy.zeros(self.d)
+        args = (gamma, )
+        print(self.objFun(wVec0, *args))
+        wVec, _, _, gradCalls, _ = optimize.fmin_cg(self.objFun, wVec0, args=args, fprime=self.grad, gtol=tol, maxiter=maxiter, disp=True, full_output=True)
+        print(self.objFun(wVec, *args))
+        return wVec
+    
+    def newton(self, gamma, maxIter=50, tol=1e-15):
+        wVec = numpy.zeros((self.d, 1))
+        etaList = 1 / (2 ** numpy.arange(0, 10))
+        eyeMat = gamma * numpy.eye(self.d)
+        args = (gamma, )
+        
+        for t in range(maxIter):
+            zVec = numpy.dot(self.xMat, wVec.reshape(self.d, 1))
+            expZVec = numpy.exp(zVec)
+            loss = numpy.log(1 + 1 / expZVec)
+            vec1 = 1 + expZVec
+            vec2 = -1 / vec1
+            vec3 = numpy.sqrt(expZVec) / vec1
+            
+            objVal = numpy.mean(loss) + numpy.sum(wVec ** 2) * gamma / 2
+            #print('Iter ' + str(t) + ', objective value = ' + str(objVal))
+            
+            grad1 = numpy.mean(self.xMat * vec2, axis=0)
+            grad = grad1.reshape(self.d, 1) + gamma * wVec
+            
+            gradNorm = numpy.sqrt(numpy.sum(grad ** 2))
+            print('Iter ' + str(t) + ', L2 norm of gradient = ' + str(gradNorm))
+            if gradNorm < tol:
+                print('The change of obj val is smaller than ' + str(tol))
+                break
+            
+            aMat = self.xMat * vec3
+            #pVec = numpy.linalg.lstsq(hMat, grad)[0]
+            pVec = CG.cgSolver(aMat / numpy.sqrt(self.n), grad, gamma, Tol=tol, MaxIter=100)
+            
+            if gradNorm > 1e-10:
+                pg = -0.5 * numpy.sum(pVec * grad)
+                for eta in etaList:
+                    objValNew = self.objFun(wVec - eta*pVec, *args)
+                    if objValNew < objVal + eta*pg:
+                        break
+            else:
+                eta = 0.5
+            wVec = wVec - eta * pVec
+            
+            
+        hMat = numpy.dot(aMat.T, aMat) / self.n + eyeMat
+        sig = numpy.linalg.svd(hMat, compute_uv=False)
+        condnum = sig[0] / sig[-1]
+        print('Condition number is ' + str(condnum))
+        return wVec, condnum
+
+    
