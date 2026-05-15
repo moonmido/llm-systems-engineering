@@ -1,5 +1,4 @@
 
-
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model = AutoModelForCausalLM.from_pretrained(
@@ -32,7 +31,7 @@ print(tokenizer.decode(622))
 print(tokenizer.decode([3323, 622]))
 print(tokenizer.decode(29901))
 
-# Comparing Trained LLM Tokenizers
+"""### **Comparing Trained LLM Tokenizers**"""
 
 colors_list = [
     '102;194;165', '252;141;98', '141;160;203',
@@ -72,3 +71,38 @@ show_tokens(text, "bigcode/starcoder2-15b")
 show_tokens(text, "facebook/galactica-1.3b")
 
 show_tokens(text, "microsoft/Phi-3-mini-4k-instruct")
+
+"""## **Contextualized Word Embeddings From a Language Model (Like BERT)**"""
+
+from transformers import AutoModel,AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained("microsoft/deberta-base")
+model = AutoModel.from_pretrained("microsoft/deberta-v3-xsmall")
+tokens = tokenizer('Hello World',return_tensors='pt')
+output=model(**tokens)[0]
+
+output.shape
+
+for token in tokens['input_ids'][0]:
+  print(tokenizer.decode(token))
+
+output
+
+"""## **Text Embeddings (For Sentences and Whole Documents)**"""
+
+from sentence_transformers import SentenceTransformer
+
+model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
+vector = model.encode("Best movie ever !")
+
+vector.shape
+
+"""### **Word Embeddings Beyond LLMs**"""
+
+!pip install gensim
+
+import gensim.downloader as api
+
+model = api.load("glove-wiki-gigaword-50")
+
+model.most_similar([model['king']], topn=20)
