@@ -1,4 +1,5 @@
 
+
 from transformers import AutoModelForCausalLM,AutoTokenizer
 
 tokenizer = AutoTokenizer.from_pretrained('microsoft/Phi-3-mini-4k-instruct')
@@ -25,3 +26,29 @@ lm_head_output = model.lm_head(model_output[0])
 
 token_id = lm_head_output[0,-1].argmax(-1)
 tokenizer.decode(token_id)
+
+"""### **Speeding up generation by caching keys and values**"""
+
+prompt = "Write a very long email apologizing to Sarah for the tragic gardening mishap. Explain how it happened."
+
+# Tokenize the input prompt
+input_ids = tokenizer(prompt, return_tensors="pt").input_ids
+input_ids = input_ids.to("cuda")
+
+# Commented out IPython magic to ensure Python compatibility.
+# %%timeit -n 1
+# # Generate the text
+# generation_output = model.generate(
+#   input_ids=input_ids,
+#   max_new_tokens=100,
+#   use_cache=True
+# )
+
+# Commented out IPython magic to ensure Python compatibility.
+# %%timeit -n 1
+# # Generate the text
+# generation_output = model.generate(
+#   input_ids=input_ids,
+#   max_new_tokens=100,
+#   use_cache=False
+# )
