@@ -149,15 +149,15 @@ How do you build an intelligent agent that can reason, search the web, and act l
 This chapter focuses on building a ReAct-based AI agent (WorldCupGPT) using LangChain, NVIDIA LLMs, and external tools to create a real-time football analyst for the FIFA World Cup 2026.
 
 **Key topics:**
--Building a ReAct (Reasoning + Acting) agent architecture
--Integrating ChatNVIDIA (NVIDIA AI Endpoints) as the core LLM
--Designing a domain-specific system prompt (World Cup 2026 expert)
--Adding tool use capability (DuckDuckGo search)
--Implementing real-time web-augmented reasoning
--Structuring agent memory with LangGraph InMemorySaver
--Managing multi-turn conversations with thread-based execution
--Combining LLM reasoning + external search tools
--Designing a football analytics AI assistant (teams, tactics, predictions)
+- Building a ReAct (Reasoning + Acting) agent architecture
+- Integrating ChatNVIDIA (NVIDIA AI Endpoints) as the core LLM
+- Designing a domain-specific system prompt (World Cup 2026 expert)
+- Adding tool use capability (DuckDuckGo search)
+- Implementing real-time web-augmented reasoning
+- Structuring agent memory with LangGraph InMemorySaver
+- Managing multi-turn conversations with thread-based execution
+- Combining LLM reasoning + external search tools
+- Designing a football analytics AI assistant (teams, tactics, predictions)
 ---
 ## 🚀 Getting Started
 
