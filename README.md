@@ -44,6 +44,7 @@ llm-systems-engineering/
 ├── Chapter-3-/         # Prompt Engineering & RAG
 ├── Chapter-4-/         # Fine-Tuning & Adaptation
 ├── Chapter-5-/         # Evaluation, Inference Optimization & System Design
+├── Chapter-6-/         # ReAct-based AI agent (WorldCupGPT) using LangChain and NVIDIA Chat API.
 ├── LICENSE
 └── README.md
 ```
@@ -139,6 +140,25 @@ The final chapter bridges the gap between a working prototype and a production-r
 
 ---
 
+
+### 📌 Chapter 6 — ReAct-based AI agent
+
+> *Teaching an old model new tricks — efficiently.*
+
+How do you build an intelligent agent that can reason, search the web, and act like a domain expert?
+This chapter focuses on building a ReAct-based AI agent (WorldCupGPT) using LangChain, NVIDIA LLMs, and external tools to create a real-time football analyst for the FIFA World Cup 2026.
+
+**Key topics:**
+-Building a ReAct (Reasoning + Acting) agent architecture
+-Integrating ChatNVIDIA (NVIDIA AI Endpoints) as the core LLM
+-Designing a domain-specific system prompt (World Cup 2026 expert)
+-Adding tool use capability (DuckDuckGo search)
+-Implementing real-time web-augmented reasoning
+-Structuring agent memory with LangGraph InMemorySaver
+-Managing multi-turn conversations with thread-based execution
+-Combining LLM reasoning + external search tools
+-Designing a football analytics AI assistant (teams, tactics, predictions)
+---
 ## 🚀 Getting Started
 
 ### Prerequisites
