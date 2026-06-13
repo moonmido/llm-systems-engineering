@@ -45,6 +45,7 @@ llm-systems-engineering/
 ├── Chapter-4-/         # Fine-Tuning & Adaptation
 ├── Chapter-5-/         # Evaluation, Inference Optimization & System Design
 ├── Chapter-6-/         # ReAct-based AI agent (WorldCupGPT) using LangChain and NVIDIA Chat API.
+├── Chapter-7-/         # ReAct-based AI agent Production-ready software generation.
 ├── LICENSE
 └── README.md
 ```
