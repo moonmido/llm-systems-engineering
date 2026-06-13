@@ -216,7 +216,7 @@ Key insight:
 
 StartupForge uses ReAct internally, but externally behaves like a deterministic production system
 
-🧠 9. NVIDIA LLM Integration for Agent Roles
+- 🧠 9. NVIDIA LLM Integration for Agent Roles
 Using different models per agent role:
 Fast reasoning models → validation & research
 Strong reasoning models → system design & coding
