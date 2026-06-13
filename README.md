@@ -221,7 +221,8 @@ Using different models per agent role:
 Fast reasoning models → validation & research
 Strong reasoning models → system design & coding
 Optimizing cost vs intelligence per stage
-⚡ 10. Production Multi-Agent Engineering Patterns
+
+- ⚡ 10. Production Multi-Agent Engineering Patterns
 Supervisor orchestration vs pipeline chaining
 Tool-based agent composition
 Error handling between agent stages
